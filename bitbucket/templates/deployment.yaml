@@ -28,6 +28,17 @@ spec:
         - name: {{ .Chart.Name }}
           image: "{{ .Values.image.repository }}:{{ .Values.image.tag }}"
           imagePullPolicy: {{ .Values.image.pullPolicy }}
+          env:
+            - name: SERVER_PORT
+              value: '7990'
+            - name: SERVER_SCHEME
+              value: https
+            - name: SERVER_SECURE
+              value: 'true'
+            - name: SERVER_PROXY_PORT
+              value: '443'
+            - name: SERVER_PROXY_NAME
+              value: 'bitbucket-bitbucket.apps.cluster-2d6e.2d6e.example.opentlc.com'
           volumeMounts:
              - name: bitbucket-vol
                mountPath: /var/atlassian/application-data/bitbucket
