@@ -5,7 +5,7 @@
 namespace: bitbucket
 
 replicaCount: 1
-
+proxyName: ""
 image:
   repository: atlassian/bitbucket-server
   tag: 5.15.2

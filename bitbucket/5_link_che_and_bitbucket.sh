@@ -21,4 +21,6 @@ KEYCLOAK_TOKEN=$(curl -s -X POST -d "client_id=che-public" \
   $KEYCLOAK_URL/auth/realms/che/protocol/openid-connect/token | jq -j .access_token)
 echo 'KC token: '$KEYCLOAK_TOKEN
 echo '======='
-echo 'url: '$CHE_SERVER_URL'/api/oauth/1.0/authenticate?oauth_provider=bitbucket-server&request_method=POST&userId=55af264f-4ee3-4a37-bbd8-6cf385bde734&signature_method=rsa&redirect_after_login=/dashboard&token='$KEYCLOAK_TOKEN
+USER_ID=$(curl -s  $CHE_SERVER_URL/api/user  -H 'Accept: application/json, text/plain'  -H 'Authorization: Bearer '${KEYCLOAK_TOKEN}  | jq -r .id)
+echo 'Click the link'
+echo 'url: '$CHE_SERVER_URL'/api/oauth/1.0/authenticate?oauth_provider=bitbucket-server&request_method=POST&userId='$USER_ID'&signature_method=rsa&redirect_after_login=/dashboard&token='$KEYCLOAK_TOKEN

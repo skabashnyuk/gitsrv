@@ -38,7 +38,7 @@ spec:
             - name: SERVER_PROXY_PORT
               value: '443'
             - name: SERVER_PROXY_NAME
-              value: ''
+              value: '{{ .Values.proxyName }}'
           volumeMounts:
              - name: bitbucket-vol
                mountPath: /var/atlassian/application-data/bitbucket
