@@ -52,12 +52,13 @@ USER_ID=$(curl -s  $CHE_SERVER_URL/api/user  -H 'Accept: application/json, text/
 echo 'User ID : '$USER_ID
 echo '======='
 echo '==REQUEST='
-BITBACKET_REQUEST_URL='https://'$BITBUCKET_ROUTE'/rest/api/1.0/users'
+#BITBACKET_REQUEST_URL='https://'$BITBUCKET_ROUTE'/rest/api/1.0/users/ksmster?filter=ksmster'
+BITBACKET_REQUEST_URL='https://'$BITBUCKET_ROUTE'/rest/api/1.0/users?start=3&limit=3'
 BITBACKET_REQUEST_METHOD='GET'
 BITBACKET_REQUEST_URL_ENCODED=$(urlencode $BITBACKET_REQUEST_URL)
-SIGNATURE_REQUEST='https://'$CHE_ROUTE'/api/oauth/1.0/signature?oauth_provider=bitbucket-server&request_method='$BITBACKET_REQUEST_METHOD'&request_url='$BITBACKET_REQUEST_URL'&user_id='$USER_ID'&token='$KEYCLOAK_TOKEN
+SIGNATURE_REQUEST='https://'$CHE_ROUTE'/api/oauth/1.0/signature?oauth_provider=bitbucket-server&request_method='$BITBACKET_REQUEST_METHOD'&request_url='$BITBACKET_REQUEST_URL_ENCODED'&user_id='$USER_ID'&token='$KEYCLOAK_TOKEN
 echo $BITBACKET_REQUEST_URL
-#echo $BITBACKET_REQUEST_URL_ENCODED
+echo $BITBACKET_REQUEST_URL_ENCODED
 echo $BITBACKET_REQUEST_METHOD
 #echo $SIGNATURE_REQUEST
 echo '==Execute Signature='
@@ -65,5 +66,4 @@ REQUEST_SIGNATURE=$(curl -s $SIGNATURE_REQUEST )
 echo '--------SIG-------------'
 echo $REQUEST_SIGNATURE
 echo '--------SIG--------------'
-curl -s -H "Authorization: $REQUEST_SIGNATURE" $BITBACKET_REQUEST_URL | jq .
-
+curl -v -s -H  "Authorization: $REQUEST_SIGNATURE" $BITBACKET_REQUEST_URL | jq .
