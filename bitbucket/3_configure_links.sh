@@ -3,9 +3,14 @@ NS=${3:-che}
 CUR_USER=`oc whoami`
 oc project $NS
 CHE_ROUTE=$(oc get route/che --namespace=$NS -o=jsonpath={'.spec.host'})
+BITBUCKET_ROUTE=$(oc get route/bitbucket --namespace=bitbucket -o=jsonpath={'.spec.host'})
 CHE_SERVER_URL='https://'${CHE_ROUTE}
 PUB_KEY=$(cat ./certs/public.pub | sed 's/-----BEGIN PUBLIC KEY-----//g' |  sed 's/-----END PUBLIC KEY-----//g' | tr -d '\n')
-
+echo '     '
+echo '     '
+echo ' Open https://'$BITBUCKET_ROUTE
+echo '     '
+echo '     '
 echo ' Go to Administration -> Application Links'
 echo ' Enter ->>  '$CHE_SERVER_URL'/dashboard/ in the 'application url' field and press the 'Create new link' button and `Continue`.'
 echo ' After that in `Link applications` window'

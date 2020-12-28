@@ -24,3 +24,4 @@ echo '======='
 USER_ID=$(curl -s  $CHE_SERVER_URL/api/user  -H 'Accept: application/json, text/plain'  -H 'Authorization: Bearer '${KEYCLOAK_TOKEN}  | jq -r .id)
 echo 'Click the link'
 echo 'url: '$CHE_SERVER_URL'/api/oauth/1.0/authenticate?oauth_provider=bitbucket-server&request_method=POST&userId='$USER_ID'&signature_method=rsa&redirect_after_login=/dashboard&token='$KEYCLOAK_TOKEN
+open $CHE_SERVER_URL'/api/oauth/1.0/authenticate?oauth_provider=bitbucket-server&request_method=POST&userId='$USER_ID'&signature_method=rsa&redirect_after_login=/dashboard&token='$KEYCLOAK_TOKEN
