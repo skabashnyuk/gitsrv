@@ -16,6 +16,7 @@ echo ' Enter ->>  '$CHE_SERVER_URL'/dashboard/ in the 'application url' field an
 echo ' After that in `Link applications` window'
 echo ' Application Name:      Che'
 echo ' Application Type:      Generic Application'
+echo ' Service Provider Name: Che'
 echo ' Consumer key:          key123321'
 echo ' Shared secret:         key123321'
 echo ' Request Token URL:     '$CHE_SERVER_URL'/plugins/servlet/oauth/request-token'
