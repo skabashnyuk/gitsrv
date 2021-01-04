@@ -6,6 +6,8 @@ CHE_ROUTE=$(oc get route/che --namespace=$NS -o=jsonpath={'.spec.host'})
 BITBUCKET_ROUTE=$(oc get route/bitbucket --namespace=bitbucket -o=jsonpath={'.spec.host'})
 CHE_SERVER_URL='https://'${CHE_ROUTE}
 PUB_KEY=$(cat ./certs/public.pub | sed 's/-----BEGIN PUBLIC KEY-----//g' |  sed 's/-----END PUBLIC KEY-----//g' | tr -d '\n')
+CONSUMER_KEY=$(openssl rand -base64 18)
+SHARED_SECRET=$(openssl rand -base64 18)
 echo '     '
 echo '     '
 echo ' Open https://'$BITBUCKET_ROUTE
@@ -17,8 +19,8 @@ echo ' After that in `Link applications` window'
 echo ' Application Name:      Che'
 echo ' Application Type:      Generic Application'
 echo ' Service Provider Name: Che'
-echo ' Consumer key:          key123321'
-echo ' Shared secret:         key123321'
+echo ' Consumer key:          '$CONSUMER_KEY
+echo ' Shared secret:         '$SHARED_SECRET
 echo ' Request Token URL:     '$CHE_SERVER_URL'/plugins/servlet/oauth/request-token'
 echo ' Access token URL:      '$CHE_SERVER_URL'/plugins/servlet/oauth/access-token'
 echo ' Authorize URL:         '$CHE_SERVER_URL'/plugins/servlet/oauth/authorize'
@@ -26,7 +28,7 @@ echo ' Create incoming link:  true'
 echo '    '
 echo ' Next screen   '
 echo '    '
-echo ' Consumer Key:          key123321'
+echo ' Consumer Key:          '$CONSUMER_KEY
 echo ' Consumer Name:         Che'
 echo ' Public Key :           '$PUB_KEY
 
