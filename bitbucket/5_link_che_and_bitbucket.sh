@@ -19,7 +19,7 @@ KEYCLOAK_TOKEN=$(curl -s -X POST -d "client_id=che-public" \
       -d "subject_issuer=openshift-v4" \
      --data-urlencode "subject_token_type=urn:ietf:params:oauth:token-type:access_token" \
   $KEYCLOAK_URL/auth/realms/che/protocol/openid-connect/token | jq -j .access_token)
-echo 'KC token: '$KEYCLOAK_TOKEN
+#echo 'KC token: '$KEYCLOAK_TOKEN
 echo '======='
 USER_ID=$(curl -s  $CHE_SERVER_URL/api/user  -H 'Accept: application/json, text/plain'  -H 'Authorization: Bearer '${KEYCLOAK_TOKEN}  | jq -r .id)
 echo 'Click the link'
