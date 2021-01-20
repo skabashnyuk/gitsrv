@@ -7,7 +7,7 @@ BITBUCKET_ROUTE=$(oc get route/bitbucket --namespace=bitbucket -o=jsonpath={'.sp
 CHE_SERVER_URL='https://'${CHE_ROUTE}
 PUB_KEY=$(cat ./certs/public.pub | sed 's/-----BEGIN PUBLIC KEY-----//g' |  sed 's/-----END PUBLIC KEY-----//g' | tr -d '\n')
 CONSUMER_KEY=$(cat ./certs/bitbucket_server_consumer_key)
-SHARED_SECRET=$(openssl rand -base64 20)
+SHARED_SECRET=$(openssl rand -base64 24)
 echo '     '
 echo '     '
 echo ' Open https://'$BITBUCKET_ROUTE
