@@ -17,4 +17,13 @@ echo 'Bitbucket url: '$BITBUCKET_ROUTE
 #echo 'KC token: '$KEYCLOAK_TOKEN
 echo '======='
 
-open $CHE_SERVER_URL'/f?url=https://'$BITBUCKET_ROUTE'/scm/che/che-server.git'
+unameOut="$(uname -s)"
+case "${unameOut}" in
+    Linux*)     OPEN_FUNC=xdg-open;;
+    Darwin*)    OPEN_FUNC=open;;
+    CYGWIN*)    OPEN_FUNC=xdg-open;;
+    MINGW*)     OPEN_FUNC=xdg-open;;
+    *)          OPEN_FUNC=xdg-open
+esac
+
+$OPEN_FUNC $CHE_SERVER_URL'/f?url=https://'$BITBUCKET_ROUTE'/scm/che/che-server.git'
