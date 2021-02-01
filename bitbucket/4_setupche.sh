@@ -9,11 +9,11 @@ BITBUCKET_HOST=$(oc get routes -n bitbucket -o json | jq -r '.items[0].spec.host
 unameOut="$(uname -s)"
 
 case "${unameOut}" in
-    Linux*)     BASE64_FUNC=base64 -w 0;;
-    Darwin*)    BASE64_FUNC=base64;;
-    CYGWIN*)    BASE64_FUNC=base64 -w 0;;
-    MINGW*)     BASE64_FUNC=base64 -w 0;;
-    *)          BASE64_FUNC=base64 -w 0
+    Linux*)     BASE64_FUNC='base64 -w 0';;
+    Darwin*)    BASE64_FUNC='base64';;
+    CYGWIN*)    BASE64_FUNC='base64 -w 0';;
+    MINGW*)     BASE64_FUNC='base64 -w 0';;
+    *)          BASE64_FUNC='base64 -w 0'
 esac
 
 oc project $NS
