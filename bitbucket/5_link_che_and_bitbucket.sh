@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 
-NS=${3:-che}
+NS=${1:-eclipse-che}
 CUR_USER=`oc whoami`
 oc project $NS
 CHE_ROUTE=$(oc get route/che --namespace=$NS -o=jsonpath={'.spec.host'})

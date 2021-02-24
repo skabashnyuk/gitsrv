@@ -22,7 +22,7 @@ urlencode() {
 set -e
 echo 'Logged in as ' $(oc whoami)
 
-NS=${1:-che}
+NS=${1:-eclipse-che}
 CHE_ROUTE=$(oc get route/che --namespace=$NS -o=jsonpath={'.spec.host'})
 CHE_SERVER_URL='https://'${CHE_ROUTE}
 KEYCLOAK_ROUTE=$(oc get route/keycloak --namespace=$NS -o=jsonpath={'.spec.host'})
