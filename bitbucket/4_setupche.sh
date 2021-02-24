@@ -17,24 +17,19 @@ case "${unameOut}" in
 esac
 
 oc project $NS
-oc patch checluster/eclipse-che --patch "{\"spec\":{\"server\":{\"customCheProperties\": {\"CHE_OAUTH1_BITBUCKET_CONSUMERKEYPATH\": \"/home/user/eclipse-che/conf/oauth1/bitbucket/consumer.key\"}}}}" --type=merge -n $NS
-oc patch checluster/eclipse-che --patch "{\"spec\":{\"server\":{\"customCheProperties\": {\"CHE_OAUTH1_BITBUCKET_PRIVATEKEYPATH\": \"/home/user/eclipse-che/conf/oauth1/bitbucket/private.key\"}}}}" --type=merge -n $NS
-oc patch checluster/eclipse-che --patch "{\"spec\":{\"server\":{\"customCheProperties\": {\"CHE_OAUTH1_BITBUCKET_SHAREDSECRETPATH\": \"/home/user/eclipse-che/conf/oauth1/bitbucket/shared_secret\"}}}}" --type=merge -n $NS
-oc patch checluster/eclipse-che --patch "{\"spec\":{\"server\":{\"customCheProperties\": {\"CHE_OAUTH1_BITBUCKET_ENDPOINT\": \"https://$BITBUCKET_HOST\"}}}}" --type=merge -n $NS
-oc patch checluster/eclipse-che --patch "{\"spec\":{\"server\":{\"customCheProperties\": {\"CHE_INTEGRATION_BITBUCKET_SERVER__ENDPOINTS\": \"https://$BITBUCKET_HOST\"}}}}" --type=merge -n $NS
 oc delete secret bitbucket-oauth1-config --ignore-not-found=false
 
 cat <<EOF | oc apply -n $NS -f -
-apiVersion: v1
 kind: Secret
+apiVersion: v1
 metadata:
-  name: bitbucket-oauth1-config
+  name: bitbucket-oauth-config
   labels:
     app.kubernetes.io/part-of: che.eclipse.org
-    app.kubernetes.io/component: che-secret
+    app.kubernetes.io/component: oauth-scm-configuration
   annotations:
-    che.eclipse.org/mount-path: /home/user/eclipse-che/conf/oauth1/bitbucket
-    che.eclipse.org/mount-as: file
+    che.eclipse.org/oauth-scm-server: bitbucket
+    che.eclipse.org/scm-server-endpoint: https://bitbucket-bitbucket.apps.cluster-devtools-5c7b.devtools-5c7b.example.opentlc.com
 type: Opaque
 data:
   private.key: $(echo -n $PRIVATE_KEY | $BASE64_FUNC) 
