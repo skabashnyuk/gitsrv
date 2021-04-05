@@ -4,7 +4,7 @@ NS=${1:-eclipse-che}
 CUR_USER=`oc whoami`
 CONSUMER_KEY=$(cat ./certs/bitbucket_server_consumer_key)
 SHARED_SECRET=$(cat ./certs/bitbucket_shared_secret)
-PRIVATE_KEY=$(cat ./certs/privatepkcs8.pem | sed 's/-----BEGIN PRIVATE KEY-----//g' |  sed 's/----END PRIVATE KEY-----//g' | tr -d '\n')
+PRIVATE_KEY=$(cat ./certs/privatepkcs8.pem | sed 's/-----BEGIN PRIVATE KEY-----//g' |  sed 's/-----END PRIVATE KEY-----//g' | tr -d '\n')
 BITBUCKET_HOST=$(oc get routes -n bitbucket -o json | jq -r '.items[0].spec.host')
 unameOut="$(uname -s)"
 
